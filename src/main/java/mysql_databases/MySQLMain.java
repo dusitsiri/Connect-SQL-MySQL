@@ -1,3 +1,5 @@
+package mysql_databases;
+
 import mysql_databases.MySQLConnection;
 
 import java.sql.Connection;
