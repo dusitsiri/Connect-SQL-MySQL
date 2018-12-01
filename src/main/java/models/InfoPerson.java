@@ -67,11 +67,10 @@ public class InfoPerson {
 
     @Override
     public String toString() {
-        return "'" + date + '\'' +
-                ", title='" + title + '\'' +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", address='" + address + '\'' +
-                ", mobile='" + mobile + '\'';
+        return "'" + title + '\'' +
+                ", '" + name + '\'' +
+                ", '" + surname + '\'' +
+                ", '" + address + '\'' +
+                ", '" + mobile + '\'';
     }
 }

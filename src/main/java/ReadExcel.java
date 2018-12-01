@@ -9,47 +9,64 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class ReadExcel {
 
-    //Connect to Sqlite
-    static SqliteConnection sqliteConnection = new SqliteConnection();
-    Connection connection = sqliteConnection.connect();
+    private static ArrayList<String> datas = new ArrayList<>();
+    private static ArrayList<String> address = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
-        File excelFile = new File("IQM.xlsx");
-        FileInputStream fis = new FileInputStream(excelFile);
+        File file = new File("utility.xlsx");
+        FileInputStream fis = new FileInputStream(file);
         //we create an XSSF Workbook object for our XLSX Excel file
         XSSFWorkbook workbook = new XSSFWorkbook(fis);
         //we get first sheet
-        XSSFSheet sheet = workbook.getSheetAt(0);
-        //we iterate on rows
-        Iterator<Row> rowIt = sheet.iterator();
+        XSSFSheet sheet1 = workbook.getSheetAt(0);
+        XSSFSheet sheet2 = workbook.getSheetAt(1);
 
-        int rowIndex = 0;
-        while(rowIt.hasNext()){
-            Row row = rowIt.next();
-            //iterate on cells for the current row
-            Iterator<Cell> cellIt = row.cellIterator();
-            String rowData = "";
-            while(cellIt.hasNext()){
-                Cell cell = cellIt.next(); // ช่องๆนึงของ excel
-                if (rowIndex > 0) {
-                    rowData = rowData + cell.toString()+ ":";
-                }
-            }
-//            if (rowIndex > 0){
-//                String[] line = rowData.split(":");
-//                System.out.println(line[0] + line[2]+line[3]+line[4]+line[5]+line[6]);
-//                sqliteConnection.insert(line[0], line[2], line[3], line[4], line[5], line[6]);
-//                System.out.println(rowIndex);
-//            }
-//            System.out.println();
-//            rowIndex++;
-        }
+        //readExcel
+        datas = readExcel(sheet1);
+        address = readExcel(sheet2);
+
+        showData(datas);
+//        showData(address);
 
         workbook.close();
         fis.close();
     }
+
+    public static ArrayList<String>  readExcel(XSSFSheet sheet){
+        ArrayList<String> array = new ArrayList<>();
+        //we iterate on rows
+        Iterator<Row> rowIt = sheet.iterator();
+
+        int rowIndex = 0;
+        while (rowIt.hasNext()) {
+            Row row = rowIt.next();
+            //iterate on cells for the current row
+            Iterator<Cell> cellIt = row.cellIterator();
+            String rowData = "";
+            while (cellIt.hasNext()) {
+                Cell cell = cellIt.next(); // ช่องๆนึงของ excel
+                if (rowIndex > 0) {
+                    rowData = rowData + cell.toString() + ":";
+                }
+            }
+            if (rowIndex > 0) {
+                array.addAll(Collections.singleton(rowData));
+            }
+            rowIndex++;
+        }
+        return array;
+    }
+
+    public static void showData(ArrayList<String> data){
+        for (String array: data){
+            System.out.println(array);
+        }
+    }
 }
+

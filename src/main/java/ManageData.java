@@ -16,21 +16,21 @@ public class ManageData {
         editInfoMobile();
         editInfoAddress();
 
-        for (int i = 0; i<information.size();i++){
-            System.out.println(information.get(i).getAddress());
-        }
-        System.out.println("---------------------------------------");
-        for (int i = 0; i<information.size();i++){
-            System.out.println(newInfo.get(i).getAddress());
-        }
+//        for (int i = 0; i<information.size();i++){
+//            System.out.println(information.get(i).getAddress());
+//        }
+//        System.out.println("---------------------------------------");
+//        for (int i = 0; i<information.size();i++){
+//            System.out.println(newInfo.get(i).getAddress());
+//        }
 
 //        for (int i = 0; i<information.size();i++){
 //            System.out.println(newInfo.get(i).getTitle() +" "+ newInfo.get(i).getMobile());
 //        }
 
-//        for (int i = 0; i<newInfo.size();i++){
-//            System.out.println(newInfo.get(i).toString());
-//        }
+        for (int i = 0; i<newInfo.size();i++){
+            System.out.println(newInfo.get(i).toString());
+        }
     }
 
     public static void editInfoTitle(){
@@ -53,40 +53,40 @@ public class ManageData {
 
     public static void editInfoMobile(){
         for (int i = 0; i<information.size(); i++){
-            String temp = changeWord(information.get(i).getMobile());;
+            String temp = "";
 
-//            for (int j=0; j<information.get(i).getMobile().length(); j++){ // วนลูปเบอร์โทรแต่ละหลัก
-//                if (information.get(i).getMobile().charAt(j) == '0' || information.get(i).getMobile().charAt(j) == '๐'){
-//                    temp += "0";
-//                }
-//                else if (information.get(i).getMobile().charAt(j) == '1' || information.get(i).getMobile().charAt(j) == '๑'){
-//                    temp += "1";
-//                }
-//                else if (information.get(i).getMobile().charAt(j) == '2' || information.get(i).getMobile().charAt(j) == '๒'){
-//                    temp += "2";
-//                }
-//                else if (information.get(i).getMobile().charAt(j) == '3' || information.get(i).getMobile().charAt(j) == '๓'){
-//                    temp += "3";
-//                }
-//                else if (information.get(i).getMobile().charAt(j) == '4' || information.get(i).getMobile().charAt(j) == '๔'){
-//                    temp += "4";
-//                }
-//                else if (information.get(i).getMobile().charAt(j) == '5' || information.get(i).getMobile().charAt(j) == '๕'){
-//                    temp += "5";
-//                }
-//                else if (information.get(i).getMobile().charAt(j) == '6' || information.get(i).getMobile().charAt(j) == '๖'){
-//                    temp += "6";
-//                }
-//                else if (information.get(i).getMobile().charAt(j) == '7' || information.get(i).getMobile().charAt(j) == '๗'){
-//                    temp += "7";
-//                }
-//                else if (information.get(i).getMobile().charAt(j) == '8' || information.get(i).getMobile().charAt(j) == '๘'){
-//                    temp += "8";
-//                }
-//                else if (information.get(i).getMobile().charAt(j) == '9' || information.get(i).getMobile().charAt(j) == '๙'){
-//                    temp += "9";
-//                }
-//            }
+            for (int j=0; j<information.get(i).getMobile().length(); j++){ // วนลูปเบอร์โทรแต่ละหลัก
+                if (information.get(i).getMobile().charAt(j) == '0' || information.get(i).getMobile().charAt(j) == '๐'){
+                    temp += "0";
+                }
+                else if (information.get(i).getMobile().charAt(j) == '1' || information.get(i).getMobile().charAt(j) == '๑'){
+                    temp += "1";
+                }
+                else if (information.get(i).getMobile().charAt(j) == '2' || information.get(i).getMobile().charAt(j) == '๒'){
+                    temp += "2";
+                }
+                else if (information.get(i).getMobile().charAt(j) == '3' || information.get(i).getMobile().charAt(j) == '๓'){
+                    temp += "3";
+                }
+                else if (information.get(i).getMobile().charAt(j) == '4' || information.get(i).getMobile().charAt(j) == '๔'){
+                    temp += "4";
+                }
+                else if (information.get(i).getMobile().charAt(j) == '5' || information.get(i).getMobile().charAt(j) == '๕'){
+                    temp += "5";
+                }
+                else if (information.get(i).getMobile().charAt(j) == '6' || information.get(i).getMobile().charAt(j) == '๖'){
+                    temp += "6";
+                }
+                else if (information.get(i).getMobile().charAt(j) == '7' || information.get(i).getMobile().charAt(j) == '๗'){
+                    temp += "7";
+                }
+                else if (information.get(i).getMobile().charAt(j) == '8' || information.get(i).getMobile().charAt(j) == '๘'){
+                    temp += "8";
+                }
+                else if (information.get(i).getMobile().charAt(j) == '9' || information.get(i).getMobile().charAt(j) == '๙'){
+                    temp += "9";
+                }
+            }
             newInfo.get(i).setMobile(temp);
         }
 
