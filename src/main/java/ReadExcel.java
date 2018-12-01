@@ -14,6 +14,7 @@ import java.util.Iterator;
 public class ReadExcel {
 
     private static ArrayList<InfoPerson> datas = new ArrayList<>();
+    private static ArrayList<InfoPerson> newDatas = new ArrayList<>();
     private static ArrayList<Address> address = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
@@ -33,7 +34,8 @@ public class ReadExcel {
 
         //create managedata
         ManageData manageData = new ManageData(datas, address);
-        manageData.editTitle();
+//        newDatas = manageData.editTitle();
+        newDatas = manageData.editMobile();
 
 
         workbook.close();
