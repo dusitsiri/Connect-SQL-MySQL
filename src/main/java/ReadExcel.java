@@ -1,8 +1,8 @@
+import models.InfoPerson;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import sqlite_databases.SqliteConnection;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,13 +10,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 
 public class ReadExcel {
 
-    private static ArrayList<String> datas = new ArrayList<>();
-    private static ArrayList<String> address = new ArrayList<>();
+    private static ArrayList<InfoPerson> datas = new ArrayList<>();
+    private static ArrayList<InfoPerson> address = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
         File file = new File("utility.xlsx");
@@ -29,17 +30,16 @@ public class ReadExcel {
 
         //readExcel
         datas = readExcel(sheet1);
-        address = readExcel(sheet2);
+//        address = readExcel(sheet2);
 
-        showData(datas);
-//        showData(address);
+//        showData(datas);
 
         workbook.close();
         fis.close();
     }
 
-    public static ArrayList<String>  readExcel(XSSFSheet sheet){
-        ArrayList<String> array = new ArrayList<>();
+    public static ArrayList<InfoPerson> readExcel(XSSFSheet sheet) {
+        ArrayList<InfoPerson> array = new ArrayList<>();
         //we iterate on rows
         Iterator<Row> rowIt = sheet.iterator();
 
@@ -52,21 +52,47 @@ public class ReadExcel {
             while (cellIt.hasNext()) {
                 Cell cell = cellIt.next(); // ช่องๆนึงของ excel
                 if (rowIndex > 0) {
-                    rowData = rowData + cell.toString() + ":";
+                    rowData = rowData + cell.toString() + ",";
                 }
             }
-            if (rowIndex > 0) {
-                array.addAll(Collections.singleton(rowData));
+            String[] splitRow = rowData.split(",");
+            for (String d : splitRow){
+                System.out.print(d+" ");
             }
+            System.out.println(Arrays.toString(splitRow));
+
             rowIndex++;
         }
+//        for (InfoPerson arr : datas) {
+//            System.out.print(arr.getTitle() + " ");
+//            System.out.print(arr.getName() + " ");
+//            System.out.print(arr.getSurname() + " ");
+//            System.out.print(arr.getAddress() + " ");
+//            System.out.print(arr.getMobile() + " ");
+//            System.out.println();
+//        }
         return array;
     }
 
-    public static void showData(ArrayList<String> data){
-        for (String array: data){
-            System.out.println(array);
+    public static void showData(ArrayList<InfoPerson> datas) {
+        for (InfoPerson arr : datas) {
+            System.out.print(arr.getTitle() + " ");
+            System.out.print(arr.getName() + " ");
+            System.out.print(arr.getSurname() + " ");
+            System.out.print(arr.getAddress() + " ");
+            System.out.print(arr.getMobile() + " ");
+            System.out.println();
         }
     }
+
+
+    public static ArrayList<InfoPerson> getDatas() {
+        return datas;
+    }
+
+    public static ArrayList<InfoPerson> getAddress() {
+        return address;
+    }
+
 }
 

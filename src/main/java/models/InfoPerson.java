@@ -1,28 +1,18 @@
 package models;
 
 public class InfoPerson {
-    private String date;
     private String title;
     private String name;
     private String surname;
     private String address;
     private String mobile;
 
-    public InfoPerson(String date, String title, String name, String surname, String address, String mobile) {
-        this.date = date;
+    public InfoPerson(String title, String name, String surname, String address, String mobile) {
         this.title = title;
         this.name = name;
         this.surname = surname;
         this.address = address;
         this.mobile = mobile;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     public String getTitle() {
