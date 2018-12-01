@@ -30,9 +30,10 @@ public class ReadExcel {
 
         //readExcel
         datas = readExcel(sheet1);
+
 //        address = readExcel(sheet2);
 
-//        showData(datas);
+        showData(datas);
 
         workbook.close();
         fis.close();
@@ -49,28 +50,25 @@ public class ReadExcel {
             //iterate on cells for the current row
             Iterator<Cell> cellIt = row.cellIterator();
             String rowData = "";
+
             while (cellIt.hasNext()) {
                 Cell cell = cellIt.next(); // ช่องๆนึงของ excel
                 if (rowIndex > 0) {
-                    rowData = rowData + cell.toString() + ",";
+                    rowData = rowData + cell.toString() + ":";
                 }
             }
-            String[] splitRow = rowData.split(",");
-            for (String d : splitRow){
-                System.out.print(d+" ");
-            }
-            System.out.println(Arrays.toString(splitRow));
 
+            if (rowIndex > 0){
+                String[] splitRow = rowData.split(":");
+                String title = splitRow[2];
+                String name = splitRow[3];
+                String surname = splitRow[4];
+                String address = splitRow[5];
+                String mobile = splitRow[6];
+                array.add(new InfoPerson(title,name,surname,address,mobile));
+            }
             rowIndex++;
         }
-//        for (InfoPerson arr : datas) {
-//            System.out.print(arr.getTitle() + " ");
-//            System.out.print(arr.getName() + " ");
-//            System.out.print(arr.getSurname() + " ");
-//            System.out.print(arr.getAddress() + " ");
-//            System.out.print(arr.getMobile() + " ");
-//            System.out.println();
-//        }
         return array;
     }
 
@@ -95,4 +93,3 @@ public class ReadExcel {
     }
 
 }
-
