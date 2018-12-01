@@ -34,8 +34,12 @@ public class ReadExcel {
 
         //create managedata
         ManageData manageData = new ManageData(datas, address);
-//        newDatas = manageData.editTitle();
-        newDatas = manageData.editMobile();
+        manageData.editTitle();
+        manageData.editMobile();
+
+        for (int i=0; i<manageData.getData().size(); i++){
+            System.out.println(manageData.getData().get(i));
+        }
 
 
         workbook.close();

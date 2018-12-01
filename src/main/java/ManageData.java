@@ -4,6 +4,7 @@ import models.InfoPerson;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 public class ManageData {
 
@@ -15,50 +16,63 @@ public class ManageData {
         this.address = address;
     }
 
-//    public ArrayList<InfoPerson> editTitle(){
-//        for (int i=0; i<data.size(); i++){
-//            System.out.println(data.get(i));
-//        }
-//    }
-
-//    public  ArrayList<InfoPerson> editAddress(){
-//
-//    }
-
-    public ArrayList<InfoPerson> editMobile() {
-        ArrayList<String> number = new ArrayList<>();
+    public void editTitle() {
         for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).getMobile().matches("[๐๑๒_๓๔๕๖๗๘๙-]+") ||
-                    data.get(i).getMobile().matches("[012345678_9-]+")) {
+            if (data.get(i).getTitle().matches("[mM][rR].?|นาย.?")) {
+                data.get(i).setTitle("นาย");
+            } else if (data.get(i).getTitle().matches("[mM][rR][sS].?|นาง.?")) {
+                data.get(i).setTitle("นาง");
+            } else if (data.get(i).getTitle().matches("[mM][sS].?|น.?ส.?")) {
+                data.get(i).setTitle("นางสาว");
+            } else if (!data.get(i).getTitle().substring(2, 3).matches("ย|ง")) {
+                Random random = new Random();
+                char replaceChar = "ยง".charAt(random.nextInt("ยง".length()-1));
+                if (replaceChar == 'ย') data.get(i).setTitle("นาย");
+                else data.get(i).setTitle("นาง");
+            }
+        }
+    }
+
+    public void editAddress() {
+
+    }
+
+    public void editMobile() {
+        for (int i = 0; i < data.size(); i++) {
+            //Thai and numeric number with underscroll(_) or hyphen(-)
+            if (data.get(i).getMobile().matches("[๐๑๒๓๔๕๖๗๘๙_-]+") ||
+                    data.get(i).getMobile().matches("[0123456789_-]+")) {
+
                 if (data.get(i).getMobile().contains("-")) {
-                    number.add(changeTypeNumber(data.get(i).getMobile(), "-"));
+                    data.get(i).setMobile(changeTypeNumber(data.get(i).getMobile(), "-"));
                 } else if (data.get(i).getMobile().contains("_")) {
-                    number.add(changeTypeNumber(data.get(i).getMobile(), "_"));
-                } else if (data.get(i).getMobile().substring(0, 2).equals("66")){
+                    data.get(i).setMobile(changeTypeNumber(data.get(i).getMobile(), "_"));
+                } else if (!data.get(i).getMobile().substring(0, 2).matches("[0][123456789]")) {
                     data.get(i).setMobile(data.get(i).getMobile().replace(
-                            data.get(i).getMobile().substring(0, 2)+"", '0'+""));
-                    number.add(data.get(i).getMobile());
-                } else {
-                    number.add(data.get(i).getMobile());
+                            data.get(i).getMobile().substring(0, 2) + "", '0' + ""));
+                    data.get(i).setMobile(data.get(i).getMobile());
+                }
+                //numeric number [0-9]+
+                else {
+                    data.get(i).setMobile(data.get(i).getMobile());
                 }
             }
 
         }
-        return this.data;
     }
 
-    public String changeTypeNumber(String mobile, String split) {
-        String[] splitMobile = new String[0];
-        if (split.equals("-")) {
-            splitMobile = mobile.split("-");
-        } else if (split.equals("_")){
-            splitMobile = mobile.split("_");
-        }
+    public String changeTypeNumber(String mobile, String splitChar) {
+        //split special char in mobile number to string array
+        String[] splitMobile = mobile.split(splitChar);
+
+        //append number without special char
         String temp = "";
         for (String list : splitMobile) {
             temp += list;
         }
-        if (!temp.matches("[0-9]+")){
+
+        //Thai number replace by numeric number
+        if (!temp.matches("[0-9]+")) {
             for (int i = 0; i < temp.length(); i++) {
                 if (temp.charAt(i) == '๐') temp = temp.replace(temp.charAt(i), '0');
                 else if (temp.charAt(i) == '๑') temp = temp.replace(temp.charAt(i), '1');
@@ -73,5 +87,10 @@ public class ManageData {
             }
         }
         return temp;
+    }
+
+    //get Personal Information
+    public ArrayList<InfoPerson> getData() {
+        return data;
     }
 }
