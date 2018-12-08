@@ -84,6 +84,10 @@ public class ReadExcel {
             for (int j = 0; j < manageData.getData().size(); j++) {
                 fileWriter2.write(String.valueOf(manageData.getData().get(j)) + "\n");
             }
+            fileWriter2.write("\n ---------ข้อมูลที่แก้ไขไม่ได้หรือแก้ไขได้ยาก---------\n");
+            for (int k = 0; k < manageData.getUselessData().size(); k++){
+                fileWriter2.write(String.valueOf(manageData.getUselessData().get(k))+"\n");
+            }
             fileWriter2.flush();
             fileWriter2.close();
             System.out.println("writing output file success.");
