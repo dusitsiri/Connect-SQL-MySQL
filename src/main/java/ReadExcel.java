@@ -5,9 +5,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -28,24 +26,23 @@ public class ReadExcel {
 
         //readExcel
         datas = readExcel(sheet1);
-        address = readAddress(sheet2);
+        writeInput();
+//        address = readAddress(sheet2);
 //        showData(datas);
 //        showData(address);
 
         //create managedata
-        ManageData manageData = new ManageData(datas, address);
+//        ManageData manageData = new ManageData(datas, address);
+        ManageData manageData = new ManageData(datas);
         manageData.editTitle();
+        manageData.editAddress();
         manageData.editMobile();
 
-        for (int i=0; i<manageData.getData().size(); i++){
-            System.out.println(manageData.getData().get(i));
-        }
-
+        writeOutput(manageData);
 
         workbook.close();
         fis.close();
     }
-
 
 
     public static ArrayList<InfoPerson> readExcel(XSSFSheet sheet) {
@@ -65,17 +62,50 @@ public class ReadExcel {
                 }
             }
             String[] splitRow = rowData.split(":");
-            if (rowIndex > 0){
+            if (rowIndex > 0) {
                 String title = splitRow[2];
                 String name = splitRow[3];
                 String surname = splitRow[4];
                 String address = splitRow[5];
                 String mobile = splitRow[6];
-                array.add(new InfoPerson(title,name,surname,address,mobile));
+                array.add(new InfoPerson(title, name, surname, address, mobile));
             }
             rowIndex++;
         }
         return array;
+    }
+
+    public static void writeOutput(ManageData manageData) {
+        try {
+
+            File file2 = new File("output.txt");
+            FileWriter fileWriter2 = new FileWriter(file2);
+            System.out.println("writing output file.....");
+            for (int j = 0; j < manageData.getData().size(); j++) {
+                fileWriter2.write(String.valueOf(manageData.getData().get(j)) + "\n");
+            }
+            fileWriter2.flush();
+            fileWriter2.close();
+            System.out.println("writing output file success.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeInput() {
+        try {
+            File file1 = new File("input.txt");
+            FileWriter fileWriter1 = new FileWriter(file1);
+            System.out.println("writing input file.....");
+            for (int i = 0; i < datas.size(); i++) {
+                fileWriter1.write(String.valueOf(datas.get(i)) + "\n");
+            }
+            fileWriter1.flush();
+            fileWriter1.close();
+            System.out.println("writing input file success.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static ArrayList<Address> readAddress(XSSFSheet sheet) {
@@ -106,18 +136,4 @@ public class ReadExcel {
         }
         return array;
     }
-
-    public static void showData(ArrayList<InfoPerson> datas) {
-        for (InfoPerson arr : datas) {
-            System.out.print(arr.getTitle() + " ");
-            System.out.print(arr.getName() + " ");
-            System.out.print(arr.getSurname() + " ");
-            System.out.print(arr.getAddress() + " ");
-            System.out.print(arr.getMobile() + " ");
-            System.out.println();
-        }
-    }
-
-
-
 }

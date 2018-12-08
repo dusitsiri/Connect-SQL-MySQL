@@ -55,13 +55,12 @@
 //                String query = "select * from personal_information";
 //                ResultSet resultSet = statement.executeQuery(query);
 //                while(resultSet.next()){
-//                    String date = resultSet.getString(1);
 //                    String title = resultSet.getString(2);
 //                    String name = resultSet.getString(3);
 //                    String surname = resultSet.getString(4);
 //                    String address = resultSet.getString(5);
 //                    String mobile = resultSet.getString(6);
-//                    info.add(new InfoPerson(date,title,name,surname,address,mobile));
+//                    info.add(new InfoPerson(title,name,surname,address,mobile));
 //                }
 //            }
 //        } catch (ClassNotFoundException e) {
@@ -71,4 +70,5 @@
 //        }
 //        return info;
 //    }
+//
 //}
